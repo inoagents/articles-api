@@ -58,12 +58,15 @@ UserSchema.methods.toProfileJSONFor = function(user){
   };
 };
 
-UserSchema.methods.favorite = function(id){
-  if(this.favorites.indexOf(id) === -1){
-    this.favorites.push(id);
+UserSchema.methods.favorite = function (id) {
+  const user = this;
+  if (user.favorites.length === 0) {
+    user.favorites = [id];
+  } else if (user.favorites.indexOf(id) === -1) {
+    user.favorites.concat([id]);
   }
 
-  return this.save();
+  return user.save();
 };
 
 UserSchema.methods.unfavorite = function(id){
@@ -77,12 +80,15 @@ UserSchema.methods.isFavorite = function(id){
   });
 };
 
-UserSchema.methods.follow = function(id){
-  if(this.following.indexOf(id) === -1){
-    this.following.push(id);
+UserSchema.methods.follow = function (id) {
+  let user = this;
+  if (user.following.length === 0) {
+    user.following = [id];
+  } else if (user.following.indexOf(id) === -1) {
+    user.following.concat([id]);
   }
 
-  return this.save();
+  return user.save();
 };
 
 UserSchema.methods.unfollow = function(id){

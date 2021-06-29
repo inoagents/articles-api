@@ -2,9 +2,9 @@ const router = require('express').Router();
 const formidable = require('formidable');
 const path = require('path');
 const fs = require('fs');
+const auth = require('../auth');
 
-console.log(path.join(path.dirname(require.main.filename), '/files'));
-router.post('/image', function (req, res, next) {
+router.post('/image', auth.required, function (req, res, next) {
   const form = formidable({
     multiples: true,
     maxFileSize: 10 * 1024 * 1024,

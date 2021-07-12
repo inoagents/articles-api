@@ -35,6 +35,15 @@ ArticleSchema.methods.slugify = function () {
     ((Math.random() * Math.pow(36, 6)) | 0).toString(36);
 };
 
+ArticleSchema.methods.addComment = function (commentId) {
+  const article = this;
+  if (article.comments.indexOf(commentId) === -1) {
+    article.comments = article.comments.concat([commentId]);
+  }
+
+  return article.save();
+};
+
 ArticleSchema.methods.updateFavoriteCount = function () {
   var article = this;
 
